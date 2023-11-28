@@ -31,15 +31,15 @@ int main()
         // adj[v].push_back(u);
     }
     dfs(1);
-    for (int i = 1; i <= n; i++)
-    {
-        cout << "depth of Node " << i << " : " << depth[i] << endl;
-    }
-    cout << "**********" << endl;
-    for (int i = 1; i <= n; i++)
-    {
-        cout << "Height of Node " << i << " : " << height[i] << endl;
-    }
+    // for (int i = 1; i <= n; i++)
+    // {
+    //     cout << "depth of Node " << i << " : " << depth[i] << endl;
+    // }
+    // cout << "**********" << endl;
+    // for (int i = 1; i <= n; i++)
+    // {
+    //     cout << "Height of Node " << i << " : " << height[i] << endl;
+    // }
     return 0;
 }
 // tree input

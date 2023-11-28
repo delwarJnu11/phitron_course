@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Deposit Withdraw System</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="amount-box">
+      <div class="deposit-box">
+        <div>
+          <p class="text">Deposit</p>
+          <p id="deposit-bal" class="deposit-balance">00</p>
+        </div>
+      </div>
+      <div class="withdraw-box">
+        <div>
+          <p class="text">Withdraw</p>
+          <p id="withdraw-bal" class="withdraw-balance">00</p>
+        </div>
+      </div>
+      <div class="total-box">
+        <div>
+          <p class="text">Total</p>
+          <p id="total-bal" class="total-balance">100</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <div class="deposit-container">
+        <div>
+          <input
+            type="number"
+            name="Deposit"
+            id="deposit-amount"
+            class="deposit-field"
+            placeholder="Enter Deposit Amount..."
+          />
+          <button onclick="handleDeposit()" class="btn deposit-btn">
+            Deposit
+          </button>
+        </div>
+      </div>
+      <div class="withdraw-container">
+        <div>
+          <input
+            type="number"
+            name="withdraw"
+            id="withdraw-amount"
+            class="withdraw-field"
+            placeholder="Enter withdraw Amount..."
+          />
+          <button onclick="handleWithdraw()" class="btn withdraw-btn">
+            Withdraw
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- script file -->
+    <script src="./app.js"></script>
+  </body>
+</html>

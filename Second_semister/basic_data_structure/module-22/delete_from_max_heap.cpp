@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 void insert_max_heap(vector<int> &v, int n)
 {
     while (n--)
