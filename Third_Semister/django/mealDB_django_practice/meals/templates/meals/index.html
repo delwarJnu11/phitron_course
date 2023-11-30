@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block page_title %}
+<h1 class="text-center">Our All Meals</h1>
+{% endblock page_title %} {% block content %}
+<div class="container">
+  <div class="row">
+    {% for meal in meals %}
+    <div class="col-md-4 g-4">
+      <div class="card">
+        <img src="{{meal.strMealThumb}}" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{meal.strMeal}}</h5>
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </p>
+          <a href="{% url "meals:meal" meal.idMeal %}" class="btn btn-primary">Details</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

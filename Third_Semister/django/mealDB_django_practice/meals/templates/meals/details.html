@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block page_title %}
+<h1 class="text-center p-4">See Meal Details</h1>
+{% endblock %} {% block content %}
+<div class="container">
+  <strong>Meal ID: {{ single_meal.idMeal }}</strong>
+  <p>See the Clip for details of the meal</p>
+  <video width="320" height="240" controls>
+    <source src="{{ single_meal.strYoutube }}" type="video/mp4" />
+  </video>
+</div>
+{% endblock %}
