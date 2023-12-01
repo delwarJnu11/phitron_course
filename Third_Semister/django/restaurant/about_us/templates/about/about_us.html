@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% load static %} {% block page_title %} About - About
+Us {% endblock %} {% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+{% endblock %} {% block content %}
+<div class="container">
+  <div class="row about_main">
+    <div class="col-md-6 overflow-hidden">
+      <div class="image">
+        <img class="img-fluid" src="{% static "images/restaurant.jpg" %}" alt=""
+        />
+      </div>
+    </div>
+    <div class="col-md-6 text-container">
+      <h3 class="about_header">About us</h3>
+      <h1 class="heading">Know About Our Restaurant <span>FOOD VILLA</span></h1>
+      <p class="text">
+        Welcome to Food Villa, where culinary excellence meets warm hospitality
+        in a celebration of Bangali flavors. Our restaurant is not just a dining
+        destination; it's an immersive experience crafted with passion,
+        attention to detail, and a commitment to serving mouthwatering Bangali
+        cuisine.
+      </p>
+      <p class="text">
+        At Food Villa, we take pride in offering a gastronomic journey through
+        the rich and diverse culinary heritage of Bengal. Our menu is a symphony
+        of authentic flavors, blending traditional recipes with a contemporary
+        touch.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 text-container">
+      <h3 class="about_header">Our Chefs</h3>
+      <h1 class="heading">Know About Our Expert Chefs</h1>
+      <p class="text">
+        At Food Villa, our culinary journey is guided by the skilled hands and
+        creative minds of our expert chefs. We take immense pride in assembling
+        a team of culinary artisans who are not merely chefs but passionate
+        creators of gastronomic wonders. These culinary maestros bring a wealth
+        of experience, innovation, and an unwavering commitment to excellence to
+        every dish that graces your table.
+      </p>
+    </div>
+    <div class="col-md-6 overflow-hidden">
+      <div class="image">
+        <img class="img-fluid" src="{% static "images/reataurant.avif" %}"
+        alt="" />
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
