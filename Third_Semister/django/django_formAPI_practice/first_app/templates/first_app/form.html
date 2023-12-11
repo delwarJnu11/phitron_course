@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Django Crispy Form{% endblock title %}
+{% block header %}
+    <h1 class="text-center">Django form</h1>
+{% endblock header %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+    <div style="width: 50%; height: 100%; margin: auto">
+        <form method="post" class="shadow-none p-3 mb-5 bg-light rounded">
+        {% csrf_token %}
+            {{form | crispy}}
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+    </div>
+{% endblock content %}
