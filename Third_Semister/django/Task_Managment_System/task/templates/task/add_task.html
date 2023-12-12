@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block page_title %}Add Task Page{% endblock page_title %}
+{% block title %}
+    <h1 class="text-center my-4">
+        {% if 'add_task' in request.path %}
+            Add A Task
+        {% else %}
+            Update A Task
+        {% endif %}</h1>
+    <form style="width: 40%; margin: auto" method="post">
+        {% csrf_token %}
+        {{form | crispy}}
+        <button class="btn btn-primary" type="submit">
+            {% if 'add_task' in request.path %}
+                Add Task
+            {% else %}
+                Update Task
+            {% endif %}
+        </button>
+    </form>
+{% endblock title %}
