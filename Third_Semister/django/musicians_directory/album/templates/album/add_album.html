@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block page_title %}Add Album Page{% endblock page_title %}
+{% block title %}
+    <h1 class="text-center my-4">
+        {% if 'edit_album' in request.path %}
+            Update Album
+        {% else %}
+            Add Album
+        {% endif %}
+    </h1>
+    <form style="width: 40%; margin: auto" method="post">
+        {% csrf_token %}
+        {{form | crispy}}
+        <button type="submit" class="btn btn-primary">
+            {% if 'edit_album' in request.path %}
+            Update
+        {% else %}
+            Add
+        {% endif %} Album
+        </button>
+    </form>
+{% endblock title %}

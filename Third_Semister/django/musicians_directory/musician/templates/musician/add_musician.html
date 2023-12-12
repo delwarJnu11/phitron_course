@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block page_title %}Add Musician Page{% endblock page_title %}
+{% block title %}
+    <h1 class="text-center my-4">
+        {% if 'edit_musician' in request.path %}
+            Update a Musician
+        {% else %}
+            Add Musician
+        {% endif %}
+    </h1>
+    <form method="post" style="width: 40%; margin:auto">
+        {% csrf_token %}
+        {{form | crispy}}
+        <button type="submit" class="btn btn-primary">
+            {% if 'edit_musician' in request.path %}
+            Update
+        {% else %}
+            Add
+        {% endif %} Musician
+        </button>
+    </form>
+{% endblock title %}

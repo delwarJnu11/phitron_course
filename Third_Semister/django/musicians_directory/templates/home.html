@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block page_title %}Home Page{% endblock page_title %}
+{% block title %}
+    <h1 class="text-center my-4">See All Musicians and Albums List</h1>
+{% endblock title %}
+{% block content %}
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Album Rating</th>
+                    <th scope="col">Instrument Type</th>
+                    <th scope="col">Album Name</th>
+                    <th scope="col">Release Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for info in data %}
+                    <tr>
+                        <th scope="row">{{info.id}}</th>
+                        <td>
+                            <a href="{% url "edit_musician" info.id %}" class="text-dark text-decoration-none">
+                                {{info.musician.first_name}} {{info.musician.last_name}}
+                            </a>
+                        </td>
+                        <td>{{info.musician.email}}</td>
+                        <td>{{info.rating}}</td>
+                        <td>{{info.musician.instrument_type}}</td>
+                        <td>{{info.album_name}}</td>
+                        <td>{{info.release_date}}</td>
+                        <td>
+                            <a href="{% url "edit_album" info.id %}" class="btn btn-warning">Edit</a>
+                            <a href="{% url "delete_album" info.id %}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}
