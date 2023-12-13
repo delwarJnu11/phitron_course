@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block page_title %}Register Page{% endblock page_title %}
+
+{% block scripts %}
+    <script>
+      function showSuccessAlert(message) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: message,
+          timer: 2000,
+        });
+      }
+    </script>
+{% endblock scripts %}
+
+{% block heading %}
+    <h1 class="text-center my-4">Register Form</h1>
+{% endblock heading %}
+
+{% block content %}
+    {% load crispy_forms_tags %}
+    
+    <form style="width:40%; margin: auto" method="post" novalidate>
+        {% csrf_token %}
+        
+        <!-- {{form | crispy }} -->
+        {% for field in form %}
+            <div>
+            {{ field.label_tag }}
+            </div>
+                {{ field }}
+            
+            {{ field.errors | striptags }}
+        {% endfor %}
+        <div class="mt-2">
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </div>
+
+        <p class="mt-2">Already Have an Account? Please <a class="text-decoration-none" href="{% url "sign_in" %}">Login</a></p>
+    </form>
+
+
+    {% if messages %}
+      {% for msg in messages %}
+        <script>
+          showSuccessAlert("{{ msg }}");
+        </script>
+      {% endfor %}
+    {% endif %}
+{% endblock content %}
