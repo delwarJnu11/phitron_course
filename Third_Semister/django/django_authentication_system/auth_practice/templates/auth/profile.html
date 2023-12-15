@@ -2,13 +2,14 @@
 {% block page_title %}Profile Page{% endblock page_title %}
 
 {% block heading %}
-    <h1 class="text-center my-3">Welcome To Your Profile</h1>
+    <h1 class="text-center my-3">Welcome {{user.first_name}} {{user.last_name}} To Your Profile</h1>
 {% endblock heading %}
 
 {% block content %}
 <div class="container">
-        <h5 class="my-3 text-success">{{users | length}} users found</h5>
+    <h5 class="my-3 text-success">{{users | length}} users found</h5>
         <table class="table">
+            <h3>Your Details</h3>
             <thead>
                 <tr>
                 <th scope="col">ID</th>
@@ -19,6 +20,25 @@
                 <th scope="col">Set New Password</th>
                 </tr>
             </thead>
+            <tbody>
+                    {% if user == request.user %}
+                    <tr>
+                        <td>{{user.id}}</td>
+                        <td>{{user.first_name}}</td>
+                        <td>{{user.last_name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>
+                            <a class="btn btn-primary" href="{% url "change_password" %}">Change Password</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="{% url "set_password" %}">Set New Password</a>
+                        </td>
+                    </tr>                 
+                    {% endif %}
+            </tbody>
+        </table>
+        <table class="table">
+            <h3>All Users</h3>
             <tbody>
                 {% for user in users %}
                     <tr>
