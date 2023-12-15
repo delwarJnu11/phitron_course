@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from auth_practice.forms import RegisterForm
 from django.contrib import messages
 from django.contrib.auth import authenticate,update_session_auth_hash,login,logout
-from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm,SetPasswordForm
 from django.contrib.auth.models import User
 # Create your views here.
 
@@ -43,9 +43,28 @@ def user_profile(request):
 # Change user Password with Old password
 def change_user_password(request):
     if request.method == 'POST':
-        # form = PasswordChangeForm()
-        pass
+        form = PasswordChangeForm( request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, 'Password Changed Successful.')
+            return redirect('profile')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'auth/form.html', {'form': form, 'type': 'Change Password'})
 
+# set user Password without Old password
+def set_user_password(request):
+    if request.method == 'POST':
+        form = SetPasswordForm(request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'New Password Set Successful')
+            update_session_auth_hash(request, form.user)
+            return redirect('profile')
+    else:
+        form = SetPasswordForm(request.user)
+    return render(request, 'auth/form.html', {'form': form, 'type': 'Set Password'})
 # Logout
 def user_logout(request):
     logout(request)

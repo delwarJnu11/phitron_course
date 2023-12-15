@@ -28,14 +28,14 @@
                         <td>{{user.email}}</td>
                         <td>
                             {% if user == request.user %}
-                                <a class="btn btn-primary" href="">Change Password</a>
+                                <a class="btn btn-primary" href="{% url "change_password" %}">Change Password</a>
                             {% else %}
                                 <button class="btn btn-danger">You Can't Change</button>
                             {% endif %}
                         </td>
                         <td>
                             {% if user == request.user %}
-                                <a class="btn btn-warning" href="">Set New Password</a>
+                                <a class="btn btn-warning" href="{% url "set_password" %}">Set New Password</a>
                             {% else %}
                                 <button class="btn btn-danger">You Can't Change</button>
                             {% endif %}

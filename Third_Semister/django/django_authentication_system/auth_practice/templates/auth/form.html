@@ -20,6 +20,6 @@
             </div>
         {% endfor %}
         
-        <input class="btn btn-primary my-2" type="submit" value="{% if 'register' in request.path %} Register {% else %}Login{% endif %}">
+        <input class="btn btn-primary my-2" type="submit" value="{{type}}">
     </form>
 {% endblock content %}
