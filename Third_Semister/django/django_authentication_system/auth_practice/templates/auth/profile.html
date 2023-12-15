@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block page_title %}Profile Page{% endblock page_title %}
+
+{% block heading %}
+    <h1 class="text-center my-3">Welcome To Your Profile</h1>
+{% endblock heading %}
+
+{% block content %}
+<div class="container">
+        <h5 class="my-3 text-success">{{users | length}} users found</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">ID</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Password Change</th>
+                <th scope="col">Set New Password</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{user.id}}</td>
+                        <td>{{user.first_name}}</td>
+                        <td>{{user.last_name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>
+                            {% if user == request.user %}
+                                <a class="btn btn-primary" href="">Change Password</a>
+                            {% else %}
+                                <button class="btn btn-danger">You Can't Change</button>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user == request.user %}
+                                <a class="btn btn-warning" href="">Set New Password</a>
+                            {% else %}
+                                <button class="btn btn-danger">You Can't Change</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
