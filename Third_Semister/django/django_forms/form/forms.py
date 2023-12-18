@@ -57,6 +57,9 @@ class passwordMatchedValidation(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
+        # user_name = self.cleaned_data['name']
+        # user_password = self.cleaned_data['password']
+        # user_confirm_password = self.cleaned_data['confirm_password']
         user_name = cleaned_data.get('name')
         user_password = cleaned_data.get('password') 
         user_confirm_password = cleaned_data.get('confirm_password')

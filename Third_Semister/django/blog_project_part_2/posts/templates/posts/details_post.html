@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block page_title %}Details Post Page{% endblock page_title %}
+{% block heading %}
+    <h1 class="text-center my-4">Post Details</h1>
+{% endblock heading %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card p-1 border-0">
+                    <img style="width: 100%;" class="card-img-top" src="{{ post.image.url }}" alt="">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0">
+                    <div class="card-body pt-0">
+                        <h3 class="card-title">{{post.title}}</h3>
+                        <p class="card-text">{{post.content }}</p>
+                        <p>Author: {{post.author.first_name}} {{post.author.last_name}}</p>
+                        <p>Categories: 
+                            {% for cat in post.category.all %}
+                                <button disabled class="btn btn-warning m-2 text-white">{{cat.category}}</button>
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row rounded py-4" style="background-color: #e4e4e4">
+            <h3>Total Comments: {{comments | length}}</h3>
+            {% for comment in comments %}
+            <div class="m-2 p-2 rounded" style="width: 80%; background-color: #fefefe">
+                <p class="mb-1">
+                    <strong>{{comment.name}}</strong>
+                    <small> ({{comment.created_on}})</small>
+                </p>
+                <q>{{comment.body}}</q>
+            </div>
+            {% endfor %}
+            </div>
+        <div class="row">
+            <h3>Add your comment</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{comment_form | crispy}}
+                <input type="submit" value="Add Comment" class="btn btn-primary mb-2">
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

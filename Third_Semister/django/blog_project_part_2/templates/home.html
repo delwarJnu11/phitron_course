@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block page_title %}Home Page{% endblock page_title %}
+{% block content %}
+        <div class="row m-4">
+            <div class="col-md-3">
+                {% for category in categories %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="{{category}}">
+                        <label class="form-check-label" for="inlineRadio1">
+                            <a class="text-decoration-none text-dark" href="{% url "category_wise_post" category.slug %}">{{category}}</a>
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-9">
+                <h2>{{posts | length}} results found for you !!!</h2>
+                <div class="row">
+                    {% for post in posts %}
+                    <div class="col-sm-4">
+                        <div class="card m-2">
+                            <img src="{{ post.image.url }}" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{% url "details_post" post.id %}">{{post.title |truncatewords:10 }}</a></h5>
+                                <p class="card-text">{{post.content |truncatewords:15 }}</p>
+                                <p>Author: {{post.author.first_name}} {{post.author.last_name}}</p>
+                                <p>Categories: 
+                                    {% for cat in post.category.all %}
+                                        <button disabled class="btn btn-primary m-2 text-white">{{cat.category}}</button>
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+{% endblock content %}

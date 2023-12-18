@@ -50,14 +50,14 @@
                             {% if user == request.user %}
                                 <a class="btn btn-primary" href="{% url "change_password" %}">Change Password</a>
                             {% else %}
-                                <button class="btn btn-danger">You Can't Change</button>
+                                <a class="btn btn-danger disabled" href="">Change Password</a>
                             {% endif %}
                         </td>
                         <td>
                             {% if user == request.user %}
                                 <a class="btn btn-warning" href="{% url "set_password" %}">Set New Password</a>
                             {% else %}
-                                <button class="btn btn-danger">You Can't Change</button>
+                                <a class="btn btn-danger disabled" href="">Set New Password</a>
                             {% endif %}
                         </td>
                     </tr>

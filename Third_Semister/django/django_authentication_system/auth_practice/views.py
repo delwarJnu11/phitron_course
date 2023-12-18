@@ -31,6 +31,8 @@ def user_login(request):
                 login(request, user)
                 messages.success(request, 'User Logged In successful')
                 return redirect('profile') 
+        else:
+            messages.error(request, 'Please provide valid username or password')
     else:
         login_form = AuthenticationForm()
     return render(request, 'auth/form.html', {'form': login_form, 'type': 'Login'})
@@ -43,7 +45,7 @@ def user_profile(request):
 # Change user Password with Old password
 def change_user_password(request):
     if request.method == 'POST':
-        form = PasswordChangeForm( request.user, data=request.POST)
+        form = PasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
@@ -56,7 +58,7 @@ def change_user_password(request):
 # set user Password without Old password
 def set_user_password(request):
     if request.method == 'POST':
-        form = SetPasswordForm(request.user, data=request.POST)
+        form = SetPasswordForm(user=request.user, data=request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'New Password Set Successful')

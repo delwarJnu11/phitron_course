@@ -7,6 +7,7 @@ class Musicians(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length=14)
     instrument_type = models.CharField(max_length=100)
+    
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

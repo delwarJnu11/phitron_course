@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block page_title %}Profile Page{% endblock page_title %}
+{% block heading %}
+    <h1 class="text-center">User Profile</h1>
+{% endblock heading %}
+
+{% block content %}
+   <div class="text-center">
+     <a class="btn btn-primary" href="{% url "edit_profile" %}">Edit User Profile</a>
+   </div>
+   <div class="container">
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-sm-4">
+                    <div class="card m-2">
+                        <div class="card-body">
+                            <h5 class="card-title">{{post.title |truncatewords:10 }}</h5>
+                            <p class="card-text">{{post.content |truncatewords:15 }}</p>
+                            <p>Author: {{post.author.first_name}} {{post.author.last_name}}</p>
+                            <p>Categories: 
+                                {% for cat in post.category.all %}
+                                    <button disabled class="btn btn-primary m-2 text-white">{{cat.category}}</button>
+                                {% endfor %}
+                            </p>
+                            <div>
+                                <a href="{% url "edit_post" post.id %}" class="btn btn-warning text-white">Edit</a>
+                                <a href="{% url "delete_post" post.id %}" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
