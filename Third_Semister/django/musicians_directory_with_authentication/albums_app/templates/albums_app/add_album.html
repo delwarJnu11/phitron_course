@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block page_title %}{{type}} Album Page{% endblock page_title %}
+
+{% block title %}
+    <h1 class="text-center">{{type}} Album</h1>
+{% endblock title %}
+
+{% block content %}
+    <form style="width: 50%; margin:auto;" method="post" novlidate>
+        {% csrf_token %}
+        <!-- {{form | crispy}} -->
+        {% for field in form %}
+            <div>
+                <strong>{{field.label_tag}}</strong>
+            </div>
+            {{field}}
+            <div>
+                <small class="text-danger">{{field.errors | striptags}}</small>
+            </div>
+        {% endfor %}
+        <input type="submit" value="{{type}} Album" class="btn btn-success my-2">
+    </form>
+{% endblock content %}
