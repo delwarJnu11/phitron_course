@@ -15,7 +15,7 @@
             <img src="{% static 'images/toyota1.png' %}" alt="">
         </div>
     </div>
-    <div class="row m-4">
+    <div class="row my-4">
             <div class="d-flex">
                <h3> Filter by Brands: </h3>
             {% for brand in brands %}
@@ -26,6 +26,7 @@
         </div>
     </div>
     <div class="row">
+        <h3>Results found : {{cars|length}}</h3>
         {% for car in cars %}
         <div class="col-md-4">
             <div class="card border-0 shadow-lg p-3 mb-5 bg-white rounded">

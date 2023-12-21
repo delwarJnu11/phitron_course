@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView,View,UpdateView
 from django.contrib.auth.views import LoginView,PasswordChangeView
 from auth_app.forms import UserRegisterForm
@@ -61,12 +63,14 @@ class UserLogoutView(View):
         return redirect('user_login')
 
 #Profile view  
+@method_decorator(login_required, name='dispatch')
 class UserProfileView(View):
     def get(self,request):
         orders = Order.objects.filter(user = request.user)
         return render(request, 'auth_app/profile.html', {'orders': orders})
     
 # Edit Profile
+@method_decorator(login_required, name='dispatch')
 class UserUpdateView(UpdateView):
     model = User
     template_name = 'auth_app/form.html'
@@ -86,7 +90,8 @@ class UserUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         context["type"] = "Update"
         return context
-    
+
+@method_decorator(login_required, name='dispatch')
 class UserPasswordChangeView(PasswordChangeView):
     template_name = 'auth_app/change_password.html'
     success_url = reverse_lazy('profile')
