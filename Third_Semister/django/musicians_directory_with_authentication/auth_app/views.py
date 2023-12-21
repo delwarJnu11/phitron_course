@@ -13,7 +13,7 @@ from django.contrib import messages
 class RegisterView(SuccessMessageMixin,CreateView):
     model = User
     form_class = RegisterForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('user_login')
     template_name = 'auth_app/form.html'
     success_message = 'User Register Successfully Done!'
 
