@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_title %}Home Page{% endblock page_title %}
+{% block content %}
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-md-6">
+            <h2 class="display-3 fw-bold">Welcome To Our Car Mart</h2>
+            <p>A car is a vehicle that has wheels, carries a small number of passengers, and is moved by an engine or a motor. </p>
+            <div>
+                <button class="btn btn-warning">Shop Now</button>
+                <button class="btn btn-outline-warning mx-2">Explore More</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <img src="{% static 'images/toyota1.png' %}" alt="">
+        </div>
+    </div>
+    <div class="row m-4">
+            <div class="d-flex">
+               <h3> Filter by Brands: </h3>
+            {% for brand in brands %}
+                <div class="">
+                    <a class="text-decoration-none btn btn-primary mx-2" href="{% url "brand_wise_car" brand.slug %}">{{brand}}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        {% for car in cars %}
+        <div class="col-md-4">
+            <div class="card border-0 shadow-lg p-3 mb-5 bg-white rounded">
+                <img src="{{ car.image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{car.name}}</h5>
+                    <p class="card-text">{{car.description | truncatewords:10 }}</p>
+                    <a href="{% url "car_details" car.id %}" class="btn btn-info">view details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
