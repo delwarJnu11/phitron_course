@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.db.models import Sum
 from django.urls import reverse_lazy
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import redirect,get_object_or_404
 from django.views.generic import CreateView,ListView
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -10,30 +10,39 @@ from transactions.models import Transaction
 from .constants import DEPOSIT,WITHDRAWAL,LOAN,LOAN_PAID
 from transactions.forms import withdrawForm,DepositForm,LoanRequestForm
 from datetime import datetime
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+
+############# Transaction Email Send Start ############
+
+def send_transaction_email(template, transaction_type, user, amount, mail_subject):
+    message = render_to_string(template, {
+        'user': user,
+        'amount': amount,
+        'type' : transaction_type
+    })
+    from_email = "Mamar Bank <delwarjnu24@gmail.com>"
+    send_email = EmailMultiAlternatives(mail_subject, '', to=[user.email], from_email=from_email, reply_to=[from_email])
+    send_email.attach_alternative(message, 'text/html')
+    send_email.send()
+
+############# Transaction Email Send End ############
 
 # Create your views here.
-
 class TransactionCreateMixin(LoginRequiredMixin, CreateView):
     template_name = 'transactions/transaction_form.html'
     title = ''
     model = Transaction
-    success_url = reverse_lazy('loan_request')
+    success_url = reverse_lazy('transaction_report')
 
 
     def get_form_kwargs(self,**kwargs):
-        kwargs = super().get_form_kwargs(**kwargs)
-        kwargs.update({
+        form_kwargs = super().get_form_kwargs(**kwargs)
+        form_kwargs.update({
             'account': self.request.user.account
         })
-        return kwargs
+        return form_kwargs
     
-    # Evabe kora jabe ki na?
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["title"] = self.title
-    #     return context
-    
-    # module e evabe dekhano hoise
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
@@ -55,6 +64,7 @@ class DepositMoneyView(TransactionCreateMixin):
         account.balance += amount
         account.save(update_fields = ['balance'])
         messages.success(self.request, f'{amount} tk was deposited in your account successfully')
+        send_transaction_email('transactions/email_template.html', 'Deposite', self.request.user, amount, 'Deposit Success Message')
         return super().form_valid(form)
     
 class WithdrawMoneyView(TransactionCreateMixin):
@@ -71,6 +81,7 @@ class WithdrawMoneyView(TransactionCreateMixin):
         account.balance -= amount
         account.save(update_fields = ['balance'])
         messages.success(self.request, f'{amount} tk was withdrawn from your account.')
+        send_transaction_email('transactions/email_template.html', 'Withdrawal', self.request.user, amount, 'Withdrawal Success Message')
         return super().form_valid(form)
     
 class LoanRequestView(TransactionCreateMixin):
@@ -90,6 +101,7 @@ class LoanRequestView(TransactionCreateMixin):
             return HttpResponse('you have crossed your loan request limit.')
         
         messages.success(self.request, f'your loan amount {amount} tk is send for approval to the admin')
+        send_transaction_email('transactions/email_template.html', 'Loan', self.request.user, amount, 'Loan Request Message')
         return super().form_valid(form)
     
 class TransactionReportView(LoginRequiredMixin, ListView):
@@ -155,10 +167,3 @@ class LoanListView(LoginRequiredMixin, ListView):
         user_account = self.request.user.account
         queryset = Transaction.objects.filter(account = user_account, transaction_type = LOAN)
         return queryset
-
-    
-
-    
-    
-    
-    
